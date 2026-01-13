@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Hi, Welcome to the Blogging App</h1>
+
+<a href="{% url 'post-create' %}">Create New Post</a>
+
+<hr>
+
+{% for post in object_list %}
+<div>
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.content|truncatewords:20 }}</p>
+
+    <a href="{% url 'post-detail' post.pk %}">View Post</a>
+    
+    {% if user == post.author or user.is_superuser %}
+    <a href="{% url 'post-update' post.pk %}">Edit</a>
+    <a href="{% url 'post-delete' post.pk %}">Delete</a>
+    {% endif %}
+
+    {% if user.is_authenticated and user != post.author and not user.is_superuser %}
+    <a href="{% url 'comment-create' post.pk %}">Add Comment</a>
+    {% endif %}
+</div>
+
+<hr>
+{% empty %}
+<p>No posts available.</p>
+{% endfor %}
+
+{% endblock %}
