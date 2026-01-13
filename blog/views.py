@@ -3,9 +3,11 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
+from django.shortcuts import redirect,render
 from .forms import SignupForm
 from .models import Post,Comment
+from django.contrib.auth.decorators import login_required
+from .models import Notification
 
 
 
@@ -88,3 +90,15 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
 class HomeView(TemplateView):
     template_name = 'home.html'
+
+
+
+@login_required
+def notifications(request):
+    notifications = Notification.objects.filter(
+        recipient=request.user
+    ).order_by('-created_at')
+
+    return render(request, 'blog/notifications.html', {
+        'notifications': notifications
+    })
