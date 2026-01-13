@@ -1,33 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h1>Welcome to the Blogging App</h1>
 
-<h1>Hi, Welcome to the Blogging App</h1>
-
-<a href="{% url 'post-create' %}">Create New Post</a>
+<a href="{% url 'post-create' %}" class="action-link">+ Create New Post</a>
 
 <hr>
 
-{% for post in object_list %}
-<div>
-    <h3>{{ post.title }}</h3>
-    <p>{{ post.content|truncatewords:20 }}</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
 
-    <a href="{% url 'post-detail' post.pk %}">View Post</a>
-    
-    {% if user == post.author or user.is_superuser %}
-    <a href="{% url 'post-update' post.pk %}">Edit</a>
-    <a href="{% url 'post-delete' post.pk %}">Delete</a>
-    {% endif %}
+    {% for post in object_list %}
+    <div style="
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
+">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content|truncatewords:20 }}</p>
 
-    {% if user.is_authenticated and user != post.author and not user.is_superuser %}
-    <a href="{% url 'comment-create' post.pk %}">Add Comment</a>
-    {% endif %}
+        <a href="{% url 'post-detail' post.pk %}" class="action-link">View</a>
+
+        {% if user == post.author or user.is_superuser %}
+        <a href="{% url 'post-update' post.pk %}" class="action-link">Edit</a>
+        <a href="{% url 'post-delete' post.pk %}" class="action-link">Delete</a>
+        {% endif %}
+
+        {% if user.is_authenticated and user != post.author and not user.is_superuser %}
+        <a href="{% url 'comment-create' post.pk %}" class="action-link">Comment</a>
+        {% endif %}
+    </div>
+    {% empty %}
+    <p>No posts available.</p>
+    {% endfor %}
+
 </div>
-
-<hr>
-{% empty %}
-<p>No posts available.</p>
-{% endfor %}
-
 {% endblock %}
