@@ -2,35 +2,31 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY
+
 SECRET_KEY = 'django-insecure-^ubdre998ha#a50(^j7!jlg)9w(*-*8e=l6t*f$z%_1y3cne=d'
 
-# ❗ DEBUG must be False in production
+
 DEBUG = False
 
-# ✅ REQUIRED FOR RENDER
+
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     "blogproject-uoa2.onrender.com",
 ]
 
-# ✅ REQUIRED FOR POST REQUESTS ON RENDER
+
 CSRF_TRUSTED_ORIGINS = [
     "https://blogproject-uoa2.onrender.com",
 ]
 
-# --------------------------------------------------
-# AUTH SETTINGS
-# --------------------------------------------------
+
 AUTH_USER_MODEL = 'blog.RegisterForm'
 
 LOGIN_REDIRECT_URL = 'post-list'
 LOGOUT_REDIRECT_URL = 'login'
 
-# --------------------------------------------------
-# APPLICATIONS
-# --------------------------------------------------
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,9 +39,7 @@ INSTALLED_APPS = [
     'blog',
 ]
 
-# --------------------------------------------------
-# MIDDLEWARE
-# --------------------------------------------------
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -56,9 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# --------------------------------------------------
-# URL & TEMPLATE CONFIG
-# --------------------------------------------------
+
 ROOT_URLCONF = 'blogproject.urls'
 
 TEMPLATES = [
@@ -78,9 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blogproject.wsgi.application'
 
-# --------------------------------------------------
-# DATABASE
-# --------------------------------------------------
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -88,9 +78,7 @@ DATABASES = {
     }
 }
 
-# --------------------------------------------------
-# PASSWORD VALIDATION
-# --------------------------------------------------
+
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -98,17 +86,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# --------------------------------------------------
-# INTERNATIONALIZATION
-# --------------------------------------------------
+
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# --------------------------------------------------
-# STATIC FILES (REQUIRED FOR RENDER)
-# --------------------------------------------------
+
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
