@@ -75,7 +75,6 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         if user == post.author or user.is_superuser:
             form.add_error(None, "You cannot comment on your own post.")
             return self.form_invalid(form)
-
         form.instance.user = user
         form.instance.post = post
 
