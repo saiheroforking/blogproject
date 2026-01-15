@@ -2,12 +2,9 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 SECRET_KEY = 'django-insecure-^ubdre998ha#a50(^j7!jlg)9w(*-*8e=l6t*f$z%_1y3cne=d'
 
-
 DEBUG = False
-
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -15,17 +12,12 @@ ALLOWED_HOSTS = [
     "blogproject-uoa2.onrender.com",
 ]
 
-
 CSRF_TRUSTED_ORIGINS = [
     "https://blogproject-uoa2.onrender.com",
 ]
-
-
-AUTH_USER_MODEL = 'blog.RegisterForm'
-
+AUTH_USER_MODEL = 'blog.User'
 LOGIN_REDIRECT_URL = 'post-list'
 LOGOUT_REDIRECT_URL = 'login'
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -34,11 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'rest_framework',
     'blog',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,7 +39,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 ROOT_URLCONF = 'blogproject.urls'
 
@@ -70,14 +59,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blogproject.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -86,12 +73,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
-
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'

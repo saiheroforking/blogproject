@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import RegisterForm,Comment
+from .models import User,Comment
 
 
-@admin.register(RegisterForm)
+@admin.register(User)
 class RegisterUserAdmin(UserAdmin):
-    model = RegisterForm
+    model = User
 
     list_display = (
         'username',

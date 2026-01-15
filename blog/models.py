@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import User
 
 
 class UserRole(models.TextChoices):
@@ -10,6 +8,23 @@ class UserRole(models.TextChoices):
     READER = 'READER', 'Reader'
 
 
+class User(AbstractUser):
+    email = models.EmailField(unique=True)
+
+    phone_number = models.CharField(
+        max_length=15,
+        blank=True,
+        null=True
+    )
+
+    role = models.CharField(
+        max_length=10,
+        choices=UserRole.choices,
+        default=UserRole.READER
+    )
+
+    def __str__(self):
+        return self.username
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
@@ -29,11 +44,13 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
         related_name='comments'
     )
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
     content = models.TextField()
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-
 
 class Notification(models.Model):
     recipient = models.ForeignKey(
@@ -47,20 +64,3 @@ class Notification(models.Model):
 
     def __str__(self):
         return f"Notification for {self.recipient}"
-class RegisterForm(AbstractUser):
-    email = models.EmailField(unique=True)
-
-    phone_number = models.CharField(
-        max_length=15,
-        blank=True,
-        null=True
-    )
-
-    role = models.CharField(
-        max_length=10,
-        choices=UserRole.choices,
-        default=UserRole.READER
-    )
-
-    def __str__(self):
-        return self.username
