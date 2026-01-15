@@ -69,12 +69,12 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     template_name = 'blog/comment_form.html'
 
     def form_valid(self, form):
-        post = Post.objects.get(pk=self.kwargs['pk'])
+        post = Post.objects.get(pk=self.kwargs.get('pk'))
         user = self.request.user
 
         if user == post.author or user.is_superuser:
-            return redirect('post-list')
-        
+            form.add_error(None, "You cannot comment on your own post.")
+            return self.form_invalid(form)
 
         form.instance.user = user
         form.instance.post = post
@@ -85,7 +85,6 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy('post-detail', kwargs={'pk': self.kwargs['pk']})
-
 
 
 class HomeView(TemplateView):
