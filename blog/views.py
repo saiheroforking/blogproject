@@ -3,7 +3,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.shortcuts import redirect,render
+from django.shortcuts import render
 from .forms import SignupForm
 from .models import Post,Comment
 from django.contrib.auth.decorators import login_required
@@ -26,7 +26,7 @@ class PostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'post_list.html'
     paginate_by = 5
-    login_url = 'login'
+    login_url = reverse_lazy('login')
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
