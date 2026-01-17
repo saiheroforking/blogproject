@@ -24,7 +24,7 @@ class LoginBlog(LoginView):
 
 class PostListView(LoginRequiredMixin, ListView):
     model = Post
-    template_name = 'post_list.html'
+    template_name = 'app/post_list.html'
     paginate_by = 5
     login_url = 'login'
 
